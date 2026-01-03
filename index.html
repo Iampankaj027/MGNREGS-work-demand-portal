@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NREGA Job Portal - Advanced</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#059669">
+    <meta name="description" content="NREGA Job Portal - Apply for rural employment opportunities">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation Header -->
+    <header class="bg-emerald-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold cursor-pointer" id="home-logo">NREGA Job Portal</h1>
+            <div class="flex space-x-4">
+                <button id="nav-home" class="hover:text-emerald-200 transition-colors">Home</button>
+                <button id="nav-apply" class="hover:text-emerald-200 transition-colors">Apply</button>
+                <button id="nav-status" class="hover:text-emerald-200 transition-colors">Status</button>
+                <button id="nav-admin" class="hover:text-emerald-200 transition-colors">Admin</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Landing Page -->
+    <div id="landing-page" class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                Rural Employment Opportunities
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+                Welcome to the NREGA Job Portal. Find meaningful employment opportunities in your area. 
+                Apply for work projects that contribute to rural development while providing guaranteed employment.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button 
+                    id="request-job-btn" 
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-4 px-8 rounded-lg text-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                >
+                    Apply for Job
+                </button>
+                <button 
+                    id="check-status-main-btn" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg text-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                >
+                    Check Status
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Dashboard -->
+        <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto mb-12">
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-2xl font-bold text-emerald-600" id="total-applications">0</h3>
+                <p class="text-gray-600">Total Applications</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-2xl font-bold text-blue-600" id="pending-applications">0</h3>
+                <p class="text-gray-600">Pending</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-2xl font-bold text-green-600" id="approved-applications">0</h3>
+                <p class="text-gray-600">Approved</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-2xl font-bold text-orange-600" id="active-jobs">0</h3>
+                <p class="text-gray-600">Active Jobs</p>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Apply for Work</h3>
+                <p class="text-gray-600 mb-4">Submit your job application for available rural development projects.</p>
+                <button class="text-emerald-600 hover:text-emerald-700 font-medium apply-btn">
+                    Get Started →
+                </button>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Track Applications</h3>
+                <p class="text-gray-600 mb-4">Monitor your application status and employment history.</p>
+                <button class="text-blue-600 hover:text-blue-700 font-medium status-btn">
+                    View Status →
+                </button>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Job Management</h3>
+                <p class="text-gray-600 mb-4">Administrative tools for managing job postings and applications.</p>
+                <button class="text-purple-600 hover:text-purple-700 font-medium admin-btn">
+                    Admin Panel →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Application Form -->
+    <div id="job-form-page" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Job Application Form</h2>
+                
+                <form id="job-application-form" class="space-y-6">
+                    <!-- Personal Information -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="applicant-name" class="block text-sm font-medium text-gray-700 mb-2">
+                                Full Name *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="applicant-name" 
+                                name="applicant-name" 
+                                required
+                                placeholder="Enter your full name"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                            >
+                        </div>
+                        <div>
+                            <label for="phone-number" class="block text-sm font-medium text-gray-700 mb-2">
+                                Phone Number *
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="phone-number" 
+                                name="phone-number" 
+                                required
+                                placeholder="Enter 10-digit mobile number"
+                                pattern="[0-9]{10}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Location Selection -->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div>
+                            <label for="state" class="block text-sm font-medium text-gray-700 mb-2">
+                                Select State *
+                            </label>
+                            <select 
+                                id="state" 
+                                name="state" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                            >
+                                <option value="">Choose State</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="district" class="block text-sm font-medium text-gray-700 mb-2">
+                                Select District *
+                            </label>
+                            <select 
+                                id="district" 
+                                name="district" 
+                                required
+                                disabled
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors disabled:bg-gray-100"
+                            >
+                                <option value="">Choose District</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="village" class="block text-sm font-medium text-gray-700 mb-2">
+                                Select Village *
+                            </label>
+                            <select 
+                                id="village" 
+                                name="village" 
+                                required
+                                disabled
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors disabled:bg-gray-100"
+                            >
+                                <option value="">Choose Village</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Work Details -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="work-type" class="block text-sm font-medium text-gray-700 mb-2">
+                                Type of Work Preferred *
+                            </label>
+                            <select 
+                                id="work-type" 
+                                name="work-type" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                            >
+                                <option value="">Select Work Type</option>
+                                <option value="Road Construction">Road Construction</option>
+                                <option value="Water Conservation">Water Conservation</option>
+                                <option value="Agriculture Support">Agriculture Support</option>
+                                <option value="Building Construction">Building Construction</option>
+                                <option value="Drainage Work">Drainage Work</option>
+                                <option value="Plantation Work">Plantation Work</option>
+                                <option value="Soil Conservation">Soil Conservation</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="preferred-date" class="block text-sm font-medium text-gray-700 mb-2">
+                                Preferred Start Date *
+                            </label>
+                            <input 
+                                type="date" 
+                                id="preferred-date" 
+                                name="preferred-date" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div>
+                        <label for="additional-info" class="block text-sm font-medium text-gray-700 mb-2">
+                            Additional Information (Optional)
+                        </label>
+                        <textarea 
+                            id="additional-info" 
+                            name="additional-info" 
+                            rows="3"
+                            placeholder="Any additional details or special requirements"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                        ></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                    >
+                        Submit Application
+                    </button>
+                </form>
+
+                <!-- Back Button -->
+                <button 
+                    id="back-to-home-from-form" 
+                    class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-lg transition-colors duration-200"
+                >
+                    Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Status Page -->
+    <div id="status-page" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Application Status Dashboard</h2>
+            
+            <!-- Search and Filter -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="search-id" class="block text-sm font-medium text-gray-700 mb-2">
+                            Search by Application ID
+                        </label>
+                        <input 
+                            type="text" 
+                            id="search-id" 
+                            placeholder="Enter Application ID"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                        >
+                    </div>
+                    <div>
+                        <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-2">
+                            Filter by Status
+                        </label>
+                        <select 
+                            id="filter-status" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                        >
+                            <option value="">All Status</option>
+                            <option value="Pending Approval">Pending Approval</option>
+                            <option value="Job Allotted">Job Allotted</option>
+                            <option value="Work in Progress">Work in Progress</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button 
+                            id="clear-filters" 
+                            class="w-full bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                        >
+                            Clear Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications List -->
+            <div id="applications-list" class="space-y-4 mb-8">
+                <!-- Applications will be inserted here -->
+            </div>
+
+            <!-- Pagination -->
+            <div id="pagination" class="flex justify-center space-x-2 mb-8">
+                <!-- Pagination buttons will be inserted here -->
+            </div>
+
+            <!-- Back Button -->
+            <div class="text-center">
+                <button 
+                    id="back-to-home-from-status" 
+                    class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+                >
+                    Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-page" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Admin Dashboard</h2>
+            
+            <!-- Admin Actions -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Job Management</h3>
+                    <div class="space-y-3">
+                        <button 
+                            id="create-job-btn" 
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                        >
+                            Create New Job Posting
+                        </button>
+                        <button 
+                            id="bulk-approve-btn" 
+                            class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                        >
+                            Bulk Approve Applications
+                        </button>
+                        <button 
+                            id="generate-report-btn" 
+                            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                        >
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">System Actions</h3>
+                    <div class="space-y-3">
+                        <button 
+                            id="add-sample-data-btn" 
+                            class="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                        >
+                            Add Sample Applications
+                        </button>
+                        <button 
+                            id="clear-all-data-btn" 
+                            class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                        >
+                            Clear All Data
+                        </button>
+                        <button 
+                            id="export-data-btn" 
+                            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                        >
+                            Export Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Applications -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Recent Applications</h3>
+                <div id="admin-applications-list" class="space-y-3">
+                    <!-- Recent applications will be shown here -->
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="text-center">
+                <button 
+                    id="back-to-home-from-admin" 
+                    class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+                >
+                    Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-8 transform transition-all">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Application Submitted Successfully!</h3>
+                <p class="text-gray-600 mb-4">Your job application has been received and is being processed.</p>
+                <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                    <p class="text-sm text-gray-600 mb-1">Your Application ID:</p>
+                    <p id="application-id" class="text-lg font-bold text-emerald-600"></p>
+                </div>
+                <button 
+                    id="close-modal-btn" 
+                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+                >
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8">
+            <div class="flex items-center space-x-3">
+                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-600"></div>
+                <span class="text-gray-700">Processing...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Location data structure
+        const locationData = {
+            "Andhra Pradesh": {
+                "Anantapur": ["Agali", "Amarapuram", "Anantapur", "Atmakur", "Beluguppa"],
+                "Chittoor": ["Chittoor", "Tirupati", "Madanapalle", "Puttur", "Srikalahasti"],
+                "East Godavari": ["Kakinada", "Rajahmundry", "Amalapuram", "Peddapuram", "Tuni"]
+            },
+            "Bihar": {
+                "Patna": ["Patna Sadar", "Danapur", "Masaurhi", "Naubatpur", "Fatuha"],
+                "Gaya": ["Gaya", "Bodh Gaya", "Manpur", "Tekari", "Khizersarai"],
+                "Muzaffarpur": ["Muzaffarpur", "Sitamarhi", "Sheohar", "Vaishali", "Samastipur"]
+            },
+            "Gujarat": {
+                "Ahmedabad": ["Ahmedabad City", "Daskroi", "Dholka", "Sanand", "Viramgam"],
+                "Surat": ["Surat City", "Bardoli", "Mahuva", "Mandvi", "Olpad"],
+                "Vadodara": ["Vadodara", "Karjan", "Padra", "Savli", "Waghodia"]
+            },
+            "Karnataka": {
+                "Bangalore": ["Bangalore North", "Bangalore South", "Anekal", "Devanahalli", "Doddaballapur"],
+                "Mysore": ["Mysore", "Nanjangud", "Piriyapatna", "Saragur", "Tirumakudal Narsipur"],
+                "Hubli": ["Hubli", "Dharwad", "Kalghatgi", "Kundgol", "Navalgund"]
+            },
+            "Maharashtra": {
+                "Mumbai": ["Mumbai City", "Mumbai Suburban", "Thane", "Kalyan", "Navi Mumbai"],
+                "Pune": ["Pune City", "Pimpri-Chinchwad", "Baramati", "Maval", "Mulshi"],
+                "Nagpur": ["Nagpur", "Kamptee", "Parseoni", "Savner", "Umred"]
+            },
+            "Rajasthan": {
+                "Jaipur": ["Jaipur", "Amber", "Bassi", "Chaksu", "Jamwa Ramgarh"],
+                "Jodhpur": ["Jodhpur", "Bilara", "Luni", "Osian", "Phalodi"],
+                "Udaipur": ["Udaipur", "Gogunda", "Kotra", "Mavli", "Sarada"]
+            },
+            "Tamil Nadu": {
+                "Chennai": ["Chennai", "Ambattur", "Madhavaram", "Manali", "Sholinganallur"],
+                "Coimbatore": ["Coimbatore", "Annur", "Kinathukadavu", "Madukkarai", "Mettupalayam"],
+                "Madurai": ["Madurai", "Kalligudi", "Melur", "Peraiyur", "Thiruparankundram"]
+            },
+            "Uttar Pradesh": {
+                "Lucknow": ["Lucknow", "Bakshi Ka Talab", "Mal", "Mohanlalganj", "Sarojininagar"],
+                "Kanpur": ["Kanpur Nagar", "Akbarpur", "Bhognipur", "Chaubepur", "Ghatampur"],
+                "Agra": ["Agra", "Bah", "Fatehabad", "Fatehpur Sikri", "Kheragarh"]
+            },
+            "West Bengal": {
+                "Kolkata": ["Kolkata", "Bhangar", "Bishnupur", "Sonarpur", "Thakurpukur"],
+                "Howrah": ["Howrah", "Bally", "Domjur", "Panchla", "Sankrail"],
+                "Darjeeling": ["Darjeeling", "Kalimpong", "Kurseong", "Mirik", "Sukhiapokhri"]
+            }
+        };
+
+        // Application management system
+        class NREGAPortal {
+            constructor() {
+                this.applications = this.loadApplications();
+                this.currentPage = 1;
+                this.itemsPerPage = 5;
+                this.filteredApplications = [...this.applications];
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.populateStates();
+                this.updateStatistics();
+                this.showPage('landing');
+            }
+
+            // Local Storage Management
+            loadApplications() {
+                const stored = localStorage.getItem('nrega_applications');
+                return stored ? JSON.parse(stored) : this.getInitialData();
+            }
+
+            saveApplications() {
+                localStorage.setItem('nrega_applications', JSON.stringify(this.applications));
+                this.updateStatistics();
+            }
+
+            getInitialData() {
+                return [
+                    {
+                        id: 'APP-10001',
+                        name: 'Rajesh Kumar',
+                        phone: '9876543210',
+                        state: 'Bihar',
+                        district: 'Patna',
+                        village: 'Patna Sadar',
+                        workType: 'Road Construction',
+                        status: 'Pending Approval',
+                        appliedDate: '2024-01-15',
+                        preferredDate: '2024-02-01'
+                    },
+                    {
+                        id: 'APP-10002',
+                        name: 'Sunita Devi',
+                        phone: '9876543211',
+                        state: 'Bihar',
+                        district: 'Gaya',
+                        village: 'Bodh Gaya',
+                        workType: 'Water Conservation',
+                        status: 'Job Allotted',
+                        appliedDate: '2024-01-10',
+                        preferredDate: '2024-01-25'
+                    }
+                ];
+            }
+
+            // Navigation Management
+            showPage(pageName) {
+                // Hide all pages
+                document.querySelectorAll('[id$="-page"]').forEach(page => {
+                    page.classList.add('hidden');
+                });
+
+                // Show requested page
+                const targetPage = document.getElementById(`${pageName}-page`);
+                if (targetPage) {
+                    targetPage.classList.remove('hidden');
+                    targetPage.classList.add('fade-in');
+                }
+
+                // Update page-specific content
+                if (pageName === 'status') {
+                    this.renderApplications();
+                } else if (pageName === 'admin') {
+                    this.renderAdminApplications();
+                }
+            }
+
+            // Location Management
+            populateStates() {
+                const stateSelect = document.getElementById('state');
+                stateSelect.innerHTML = '<option value="">Choose State</option>';
+                
+                Object.keys(locationData).forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state;
+                    option.textContent = state;
+                    stateSelect.appendChild(option);
+                });
+            }
+
+            populateDistricts(state) {
+                const districtSelect = document.getElementById('district');
+                const villageSelect = document.getElementById('village');
+                
+                // Reset districts and villages
+                districtSelect.innerHTML = '<option value="">Choose District</option>';
+                villageSelect.innerHTML = '<option value="">Choose Village</option>';
+                villageSelect.disabled = true;
+                
+                if (state && locationData[state]) {
+                    districtSelect.disabled = false;
+                    Object.keys(locationData[state]).forEach(district => {
+                        const option = document.createElement('option');
+                        option.value = district;
+                        option.textContent = district;
+                        districtSelect.appendChild(option);
+                    });
+                } else {
+                    districtSelect.disabled = true;
+                }
+            }
+
+            populateVillages(state, district) {
+                const villageSelect = document.getElementById('village');
+                villageSelect.innerHTML = '<option value="">Choose Village</option>';
+                
+                if (state && district && locationData[state] && locationData[state][district]) {
+                    villageSelect.disabled = false;
+                    locationData[state][district].forEach(village => {
+                        const option = document.createElement('option');
+                        option.value = village;
+                        option.textContent = village;
+                        villageSelect.appendChild(option);
+                    });
+                } else {
+                    villageSelect.disabled = true;
+                }
+            }
+
+            // Application Management
+            generateApplicationId() {
+                const randomNum = Math.floor(Math.random() * 90000) + 10000;
+                return `APP-${randomNum}`;
+            }
+
+            getRandomStatus() {
+                const statuses = ['Pending Approval', 'Job Allotted', 'Work in Progress', 'Completed'];
+                return statuses[Math.floor(Math.random() * statuses.length)];
+            }
+
+            submitApplication(formData) {
+                this.showLoading();
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    const applicationId = this.generateApplicationId();
+                    const newApplication = {
+                        id: applicationId,
+                        name: formData.get('applicant-name'),
+                        phone: formData.get('phone-number'),
+                        state: formData.get('state'),
+                        district: formData.get('district'),
+                        village: formData.get('village'),
+                        workType: formData.get('work-type'),
+                        status: 'Pending Approval',
+                        appliedDate: new Date().toISOString().split('T')[0],
+                        preferredDate: formData.get('preferred-date'),
+                        additionalInfo: formData.get('additional-info') || ''
+                    };
+
+                    this.applications.push(newApplication);
+                    this.saveApplications();
+                    this.hideLoading();
+                    this.showConfirmationModal(applicationId);
+                    document.getElementById('job-application-form').reset();
+                    this.resetLocationSelects();
+                }, 1500);
+            }
+
+            resetLocationSelects() {
+                document.getElementById('district').disabled = true;
+                document.getElementById('village').disabled = true;
+                document.getElementById('district').innerHTML = '<option value="">Choose District</option>';
+                document.getElementById('village').innerHTML = '<option value="">Choose Village</option>';
+            }
+
+            // Statistics Management
+            updateStatistics() {
+                const total = this.applications.length;
+                const pending = this.applications.filter(app => app.status === 'Pending Approval').length;
+                const approved = this.applications.filter(app => app.status === 'Job Allotted').length;
+                const active = this.applications.filter(app => app.status === 'Work in Progress').length;
+
+                document.getElementById('total-applications').textContent = total;
+                document.getElementById('pending-applications').textContent = pending;
+                document.getElementById('approved-applications').textContent = approved;
+                document.getElementById('active-jobs').textContent = active;
+            }
+
+            // Application Rendering
+            renderApplications() {
+                const container = document.getElementById('applications-list');
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const endIndex = startIndex + this.itemsPerPage;
+                const pageApplications = this.filteredApplications.slice(startIndex, endIndex);
+
+                if (pageApplications.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-12 text-gray-500">
+                            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <p class="text-lg">No applications found</p>
+                            <p class="text-sm">Try adjusting your search criteria or submit a new application</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = '';
+                pageApplications.forEach(app => {
+                    const statusColors = {
+                        'Pending Approval': 'bg-yellow-100 text-yellow-800',
+                        'Job Allotted': 'bg-green-100 text-green-800',
+                        'Work in Progress': 'bg-blue-100 text-blue-800',
+                        'Completed': 'bg-purple-100 text-purple-800',
+                        'Rejected': 'bg-red-100 text-red-800'
+                    };
+
+                    const appElement = document.createElement('div');
+                    appElement.className = 'bg-white rounded-lg shadow-md p-6 border-l-4 border-emerald-500 hover:shadow-lg transition-shadow';
+                    appElement.innerHTML = `
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                            <div class="mb-4 lg:mb-0 flex-1">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-800">Application ID: ${app.id}</h3>
+                                    <span class="px-3 py-1 rounded-full text-sm font-medium ${statusColors[app.status]} mt-2 sm:mt-0 self-start">
+                                        ${app.status}
+                                    </span>
+                                </div>
+                                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm text-gray-600">
+                                    <p><strong>Name:</strong> ${app.name}</p>
+                                    <p><strong>Phone:</strong> ${app.phone}</p>
+                                    <p><strong>Work Type:</strong> ${app.workType}</p>
+                                    <p><strong>Location:</strong> ${app.village}, ${app.district}</p>
+                                    <p><strong>Applied:</strong> ${new Date(app.appliedDate).toLocaleDateString()}</p>
+                                    <p><strong>Preferred Date:</strong> ${new Date(app.preferredDate).toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button 
+                                    onclick="portal.updateApplicationStatus('${app.id}')" 
+                                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                                >
+                                    Update Status
+                                </button>
+                                <button 
+                                    onclick="portal.viewApplicationDetails('${app.id}')" 
+                                    class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                                >
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(appElement);
+                });
+
+                this.renderPagination();
+            }
+
+            renderPagination() {
+                const container = document.getElementById('pagination');
+                const totalPages = Math.ceil(this.filteredApplications.length / this.itemsPerPage);
+                
+                if (totalPages <= 1) {
+                    container.innerHTML = '';
+                    return;
+                }
+
+                let paginationHTML = '';
+                
+                // Previous button
+                if (this.currentPage > 1) {
+                    paginationHTML += `
+                        <button onclick="portal.changePage(${this.currentPage - 1})" 
+                                class="px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                            Previous
+                        </button>
+                    `;
+                }
+
+                // Page numbers
+                for (let i = 1; i <= totalPages; i++) {
+                    const isActive = i === this.currentPage;
+                    paginationHTML += `
+                        <button onclick="portal.changePage(${i})" 
+                                class="px-3 py-2 ${isActive ? 'bg-emerald-600 text-white' : 'bg-white border border-gray-300 hover:bg-gray-50'} rounded-lg transition-colors">
+                            ${i}
+                        </button>
+                    `;
+                }
+
+                // Next button
+                if (this.currentPage < totalPages) {
+                    paginationHTML += `
+                        <button onclick="portal.changePage(${this.currentPage + 1})" 
+                                class="px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                            Next
+                        </button>
+                    `;
+                }
+
+                container.innerHTML = paginationHTML;
+            }
+
+            changePage(page) {
+                this.currentPage = page;
+                this.renderApplications();
+            }
+
+            // Search and Filter
+            filterApplications() {
+                const searchId = document.getElementById('search-id').value.toLowerCase();
+                const filterStatus = document.getElementById('filter-status').value;
+
+                this.filteredApplications = this.applications.filter(app => {
+                    const matchesId = !searchId || app.id.toLowerCase().includes(searchId);
+                    const matchesStatus = !filterStatus || app.status === filterStatus;
+                    return matchesId && matchesStatus;
+                });
+
+                this.currentPage = 1;
+                this.renderApplications();
+            }
+
+            clearFilters() {
+                document.getElementById('search-id').value = '';
+                document.getElementById('filter-status').value = '';
+                this.filteredApplications = [...this.applications];
+                this.currentPage = 1;
+                this.renderApplications();
+            }
+
+            // Admin Functions
+            renderAdminApplications() {
+                const container = document.getElementById('admin-applications-list');
+                const recentApps = this.applications.slice(-5).reverse();
+
+                if (recentApps.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500 text-center py-4">No recent applications</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                recentApps.forEach(app => {
+                    const appElement = document.createElement('div');
+                    appElement.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg';
+                    appElement.innerHTML = `
+                        <div>
+                            <p class="font-medium">${app.id} - ${app.name}</p>
+                            <p class="text-sm text-gray-600">${app.workType} | ${app.status}</p>
+                        </div>
+                        <button 
+                            onclick="portal.quickApprove('${app.id}')" 
+                            class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm transition-colors"
+                        >
+                            Quick Approve
+                        </button>
+                    `;
+                    container.appendChild(appElement);
+                });
+            }
+
+            addSampleData() {
+                const sampleApplications = [
+                    {
+                        id: this.generateApplicationId(),
+                        name: 'Priyanshu Agarwal',
+                        phone: '9876543212',
+                        state: 'Rajasthan',
+                        district: 'Jaipur',
+                        village: 'Amber',
+                        workType: 'Plantation Work',
+                        status: this.getRandomStatus(),
+                        appliedDate: '2024-01-20',
+                        preferredDate: '2024-02-05'
+                    },
+                    {
+                        id: this.generateApplicationId(),
+                        name: 'Nikhil singhal',
+                        phone: '9876543213',
+                        state: 'Gujarat',
+                        district: 'Ahmedabad',
+                        village: 'Dholka',
+                        workType: 'Drainage cleaning',
+                        status: this.getRandomStatus(),
+                        appliedDate: '2024-01-18',
+                        preferredDate: '2024-02-03'
+                    },
+                    {
+                        id: this.generateApplicationId(),
+                        name: 'Nirmit bhardwaj',
+                        phone: '9876543214',
+                        state: 'Andhra Pradesh',
+                        district: 'Chittoor',
+                        village: 'Tirupati',
+                        workType: 'Building construction',
+                        status: this.getRandomStatus(),
+                        appliedDate: '2024-01-22',
+                        preferredDate: '2024-02-08'
+                    }
+                ];
+
+                this.applications.push(...sampleApplications);
+                this.saveApplications();
+                this.showNotification('Sample applications added successfully!', 'success');
+            }
+
+            clearAllData() {
+                if (confirm('Are you sure you want to clear all application data? This action cannot be undone.')) {
+                    this.applications = [];
+                    this.saveApplications();
+                    this.filteredApplications = [];
+                    this.renderApplications();
+                    this.renderAdminApplications();
+                    this.showNotification('All data cleared successfully!', 'success');
+                }
+            }
+
+            bulkApprove() {
+                const pendingApps = this.applications.filter(app => app.status === 'Pending Approval');
+                if (pendingApps.length === 0) {
+                    this.showNotification('No pending applications to approve!', 'warning');
+                    return;
+                }
+
+                pendingApps.forEach(app => {
+                    app.status = 'Job Allotted';
+                });
+
+                this.saveApplications();
+                this.renderApplications();
+                this.renderAdminApplications();
+                this.showNotification(`${pendingApps.length} applications approved successfully!`, 'success');
+            }
+
+            quickApprove(applicationId) {
+                const app = this.applications.find(a => a.id === applicationId);
+                if (app && app.status === 'Pending Approval') {
+                    app.status = 'Job Allotted';
+                    this.saveApplications();
+                    this.renderAdminApplications();
+                    this.showNotification(`Application ${applicationId} approved!`, 'success');
+                }
+            }
+
+            updateApplicationStatus(applicationId) {
+                const app = this.applications.find(a => a.id === applicationId);
+                if (!app) return;
+
+                const statuses = ['Pending Approval', 'Job Allotted', 'Work in Progress', 'Completed', 'Rejected'];
+                const currentIndex = statuses.indexOf(app.status);
+                const nextIndex = (currentIndex + 1) % statuses.length;
+                
+                app.status = statuses[nextIndex];
+                this.saveApplications();
+                this.renderApplications();
+                this.showNotification(`Status updated to: ${app.status}`, 'success');
+            }
+
+            viewApplicationDetails(applicationId) {
+                const app = this.applications.find(a => a.id === applicationId);
+                if (!app) return;
+
+                alert(`Application Details:\n\nID: ${app.id}\nName: ${app.name}\nPhone: ${app.phone}\nLocation: ${app.village}, ${app.district}, ${app.state}\nWork Type: ${app.workType}\nStatus: ${app.status}\nApplied Date: ${app.appliedDate}\nPreferred Date: ${app.preferredDate}\nAdditional Info: ${app.additionalInfo || 'None'}`);
+            }
+
+            exportData() {
+                const dataStr = JSON.stringify(this.applications, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'nrega_applications.json';
+                link.click();
+                URL.revokeObjectURL(url);
+                this.showNotification('Data exported successfully!', 'success');
+            }
+
+            generateReport() {
+                const report = {
+                    totalApplications: this.applications.length,
+                    statusBreakdown: {},
+                    workTypeBreakdown: {},
+                    locationBreakdown: {},
+                    generatedOn: new Date().toISOString()
+                };
+
+                // Status breakdown
+                this.applications.forEach(app => {
+                    report.statusBreakdown[app.status] = (report.statusBreakdown[app.status] || 0) + 1;
+                    report.workTypeBreakdown[app.workType] = (report.workTypeBreakdown[app.workType] || 0) + 1;
+                    const location = `${app.district}, ${app.state}`;
+                    report.locationBreakdown[location] = (report.locationBreakdown[location] || 0) + 1;
+                });
+
+                const reportStr = JSON.stringify(report, null, 2);
+                const reportBlob = new Blob([reportStr], {type: 'application/json'});
+                const url = URL.createObjectURL(reportBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'nrega_report.json';
+                link.click();
+                URL.revokeObjectURL(url);
+                this.showNotification('Report generated successfully!', 'success');
+            }
+
+            // UI Helper Functions
+            showLoading() {
+                document.getElementById('loading-spinner').classList.remove('hidden');
+            }
+
+            hideLoading() {
+                document.getElementById('loading-spinner').classList.add('hidden');
+            }
+
+            showConfirmationModal(applicationId) {
+                document.getElementById('application-id').textContent = applicationId;
+                document.getElementById('confirmation-modal').classList.remove('hidden');
+            }
+
+            hideConfirmationModal() {
+                document.getElementById('confirmation-modal').classList.add('hidden');
+            }
+
+            showNotification(message, type = 'info') {
+                const colors = {
+                    success: 'bg-green-500',
+                    warning: 'bg-yellow-500',
+                    error: 'bg-red-500',
+                    info: 'bg-blue-500'
+                };
+
+                const notification = document.createElement('div');
+                notification.className = `fixed top-4 right-4 ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300`;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+
+            // Event Listeners Setup
+            setupEventListeners() {
+                // Navigation
+                document.getElementById('home-logo').addEventListener('click', () => this.showPage('landing'));
+                document.getElementById('nav-home').addEventListener('click', () => this.showPage('landing'));
+                document.getElementById('nav-apply').addEventListener('click', () => this.showPage('job-form'));
+                document.getElementById('nav-status').addEventListener('click', () => this.showPage('status'));
+                document.getElementById('nav-admin').addEventListener('click', () => this.showPage('admin'));
+
+                // Landing page buttons
+                document.getElementById('request-job-btn').addEventListener('click', () => this.showPage('job-form'));
+                document.getElementById('check-status-main-btn').addEventListener('click', () => this.showPage('status'));
+                document.querySelectorAll('.apply-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.showPage('job-form'));
+                });
+                document.querySelectorAll('.status-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.showPage('status'));
+                });
+                document.querySelectorAll('.admin-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.showPage('admin'));
+                });
+
+                // Back buttons
+                document.getElementById('back-to-home-from-form').addEventListener('click', () => this.showPage('landing'));
+                document.getElementById('back-to-home-from-status').addEventListener('click', () => this.showPage('landing'));
+                document.getElementById('back-to-home-from-admin').addEventListener('click', () => this.showPage('landing'));
+
+                // Location selects
+                document.getElementById('state').addEventListener('change', (e) => {
+                    this.populateDistricts(e.target.value);
+                });
+                document.getElementById('district').addEventListener('change', (e) => {
+                    const state = document.getElementById('state').value;
+                    this.populateVillages(state, e.target.value);
+                });
+
+                // Form submission
+                document.getElementById('job-application-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    this.submitApplication(formData);
+                });
+
+                // Modal
+                document.getElementById('close-modal-btn').addEventListener('click', () => {
+                    this.hideConfirmationModal();
+                    this.showPage('landing');
+                });
+
+                // Search and filter
+                document.getElementById('search-id').addEventListener('input', () => this.filterApplications());
+                document.getElementById('filter-status').addEventListener('change', () => this.filterApplications());
+                document.getElementById('clear-filters').addEventListener('click', () => this.clearFilters());
+
+                // Admin buttons
+                document.getElementById('add-sample-data-btn').addEventListener('click', () => this.addSampleData());
+                document.getElementById('clear-all-data-btn').addEventListener('click', () => this.clearAllData());
+                document.getElementById('bulk-approve-btn').addEventListener('click', () => this.bulkApprove());
+                document.getElementById('export-data-btn').addEventListener('click', () => this.exportData());
+                document.getElementById('generate-report-btn').addEventListener('click', () => this.generateReport());
+
+                // Set minimum date to today
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('preferred-date').setAttribute('min', today);
+
+                // Close modal when clicking outside
+                document.getElementById('confirmation-modal').addEventListener('click', (e) => {
+                    if (e.target.id === 'confirmation-modal') {
+                        this.hideConfirmationModal();
+                        this.showPage('landing');
+                    }
+                });
+            }
+        }
+
+        // Initialize the portal
+        let portal;
+        document.addEventListener('DOMContentLoaded', () => {
+            portal = new NREGAPortal();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'980f7e18b6cda5af',t:'MTc1ODE4NDM0NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

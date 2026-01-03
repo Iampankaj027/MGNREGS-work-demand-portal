@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8ffae 0%, #a8edea 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dashboard-container {
+            background: rgba(255,255,255,0.98);
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(168, 237, 234, 0.18);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+        .dashboard-container h2 {
+            color: #5e72e4;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        .dashboard-container p {
+            color: #444;
+            margin-bottom: 2rem;
+        }
+        .dashboard-container a {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(90deg, #a8edea 0%, #f8ffae 100%);
+            color: #5e72e4;
+            border: none;
+            border-radius: 7px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 8px rgba(168,237,234,0.08);
+        }
+        .dashboard-container a:hover {
+            background: linear-gradient(90deg, #f8ffae 0%, #a8edea 100%);
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Welcome, Admin!</h2>
+        <p>This is your dashboard. You can add admin features here, such as managing users, viewing reports, or updating site content.</p>
+        <a href="index.html">Logout</a>
+    </div>
+</body>
+</html>
